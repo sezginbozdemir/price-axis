@@ -1,13 +1,11 @@
 import Papa from "papaparse";
+import fs from "fs";
 
 export async function parseCsv(file: string): Promise<any[]> {
   try {
-    const res = await fetch(file);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch CSV: ${res.status} ${res.statusText}`);
-    }
+    const csvFile = fs.readFileSync(file);
 
-    const csv = await res.text();
+    const csv = csvFile.toString();
 
     return new Promise((resolve, reject) => {
       Papa.parse(csv, {
