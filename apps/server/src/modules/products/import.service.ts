@@ -1,25 +1,13 @@
 import { parseCsv } from "./csv.parser.js";
-import { Product, ImportResult, ImportOptions } from "./product.entity.js";
+import { ImportResult, ImportOptions } from "./product.entity.js";
 import { ProductRepository } from "./product.repository.js";
+import { ProductTransformer } from "./product.transformer.js";
 
 export class ProductImportService {
-  private readonly FIELD_ALIASES = {
-    product_code: ["Product code", "product_code", "code"],
-    name: ["Product name", "name"],
-    description: ["Product description", "desc", "description"],
-    price: ["Price with VAT", "price_vat", "vat_price"],
-    discount_price: ["Price with discount, with VAT", "discount_price"],
-    currency: ["Currency"],
-    brand: ["Manufacturer", "Brand"],
-    advertiser: ["Advertiser name", "Advertiser"],
-    category: [],
-    subcategory: ["Category"],
-    affiliate_link: ["Product affiliate link", "Affiliate link"],
-    image_url: ["Product picture", "Image URL"],
-    availability: ["Availability", "Stock"],
-  };
-
-  constructor(private productRepository: ProductRepository) {}
+  constructor(
+    private productRepository: ProductRepository,
+    private productTransformer: ProductTransformer,
+  ) {}
 
   async importFromCsv(
     csvFile: string,
@@ -75,9 +63,20 @@ export class ProductImportService {
     for (let j = 0; j < batch.length; j++) {
       const rowIndex = startIndex + j;
       const row = batch[j];
+      if (!row) {
+        await this.handleError(
+          new Error("Invalid or missing row"),
+          row,
+          rowIndex,
+          results,
+          options,
+        );
+
+        continue;
+      }
 
       try {
-        const normalizedProduct = this.transformRowToProduct(row!);
+        const normalizedProduct = this.productTransformer.transform(row);
         const result = await this.productRepository.upsert(normalizedProduct);
 
         if (result.action === "inserted") {
@@ -133,43 +132,6 @@ export class ProductImportService {
     if (!options.skipErrors) {
       throw error;
     }
-  }
-
-  private transformRowToProduct(row: Record<string, any>): Product {
-    return {
-      product_code: this.getValue(row, this.FIELD_ALIASES.product_code),
-      name: this.getValue(row, this.FIELD_ALIASES.name),
-      description: this.getValue(row, this.FIELD_ALIASES.description) ?? "",
-      price: Number(this.getValue(row, this.FIELD_ALIASES.price)) || 0,
-      discount_price:
-        Number(this.getValue(row, this.FIELD_ALIASES.discount_price)) ||
-        undefined,
-      currency: this.getValue(row, this.FIELD_ALIASES.currency) ?? "lei",
-      brand: this.getValue(row, this.FIELD_ALIASES.brand) ?? "",
-      advertiser: this.getValue(row, this.FIELD_ALIASES.advertiser) ?? "",
-      category: "",
-      subcategory: this.getValue(row, this.FIELD_ALIASES.subcategory) ?? "",
-      affiliate_link: this.normalizeLink(
-        this.getValue(row, this.FIELD_ALIASES.affiliate_link),
-      ),
-      image_url: this.getValue(row, this.FIELD_ALIASES.image_url),
-      availability:
-        this.getValue(row, this.FIELD_ALIASES.availability) ?? "unknown",
-    };
-  }
-
-  private getValue(row: Record<string, any>, aliases: string[]): any {
-    for (const key of aliases) {
-      if (key in row && row[key] != null) {
-        return row[key];
-      }
-    }
-    return undefined;
-  }
-
-  private normalizeLink(link: string | undefined): string {
-    if (!link) return "";
-    return link.startsWith("http") ? link : `https:${link}`;
   }
 
   private logSummary(results: ImportResult): void {
