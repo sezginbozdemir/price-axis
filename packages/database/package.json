@@ -1,0 +1,28 @@
+{
+  "name": "@repo/database",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./supabase": "./src/supabase-client.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "generate:component": "turbo gen react-component",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/node": "^22.15.3",
+    "drizzle-kit": "^0.31.4",
+    "eslint": "^9.31.0",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.52.1",
+    "dotenv": "^17.2.1",
+    "drizzle-orm": "^0.44.4",
+    "postgres": "^3.4.7"
+  }
+}

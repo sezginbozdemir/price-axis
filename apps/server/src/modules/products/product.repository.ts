@@ -1,5 +1,5 @@
-import { supabase } from "#modules/database/supabase.client.js";
 import { Product } from "./product.entity.js";
+import { supabase } from "@repo/database/supabase";
 
 export class ProductRepository {
   async exists(productCode: string): Promise<boolean> {

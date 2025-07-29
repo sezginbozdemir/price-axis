@@ -2,11 +2,13 @@ import { parseCsv } from "./csv.parser.js";
 import { ImportResult, ImportOptions } from "./product.entity.js";
 import { ProductRepository } from "./product.repository.js";
 import { ProductTransformer } from "./product.transformer.js";
+import { ProductValidator } from "./product.validator.js";
 
 export class ProductImportService {
   constructor(
     private productRepository: ProductRepository,
     private productTransformer: ProductTransformer,
+    private productValidator: ProductValidator,
   ) {}
 
   async importFromCsv(
@@ -77,7 +79,9 @@ export class ProductImportService {
 
       try {
         const normalizedProduct = this.productTransformer.transform(row);
-        const result = await this.productRepository.upsert(normalizedProduct);
+        const validatedProduct =
+          this.productValidator.validate(normalizedProduct);
+        const result = await this.productRepository.upsert(validatedProduct);
 
         if (result.action === "inserted") {
           results.inserted++;

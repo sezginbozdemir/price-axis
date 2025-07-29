@@ -19,7 +19,7 @@ export class ProductTransformer {
 
   transform(row: Record<string, any>): Product {
     const product: Product = {
-      product_code: this.getValue(row, this.FIELD_ALIASES.product_code),
+      product_code: String(this.getValue(row, this.FIELD_ALIASES.product_code)),
       name: this.getValue(row, this.FIELD_ALIASES.name),
       description: this.getValue(row, this.FIELD_ALIASES.description) ?? "",
       price: Number(this.getValue(row, this.FIELD_ALIASES.price)) || 0,
