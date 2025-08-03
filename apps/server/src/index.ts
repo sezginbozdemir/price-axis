@@ -2,12 +2,10 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { env } from "#env.js";
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = env.SERVER_PORT || 9000;
 
 // Middleware
 
@@ -18,7 +16,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Health check
-app.get("/health", (req, res) => {
+app.get("/health", (_req, res) => {
   res.status(200).json({
     status: "OK",
     timestamp: new Date().toISOString(),
@@ -29,5 +27,5 @@ app.get("/health", (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(`Environment: ${env.NODE_ENV || "Development"}`);
 });

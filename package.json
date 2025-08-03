@@ -21,5 +21,8 @@
     "apps/*",
     "packages/*"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "@t3-oss/env-core": "^0.13.8",
+    "dotenv": "^17.2.1"
+  }
 }

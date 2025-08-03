@@ -1,11 +1,11 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@repo/typescript-config/node.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@repo/database/*": ["./src/*"]
-    }
+    },
+    "outDir": "./dist"
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src", "drizzle.config.ts"]
 }

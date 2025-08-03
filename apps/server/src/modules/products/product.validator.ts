@@ -1,4 +1,4 @@
-import { CreateProductSchema, CreateProduct } from "./product.schema.js";
+import { CreateProductSchema, type CreateProduct } from "./product.schema.js";
 
 export class ProductValidator {
   validate(input: unknown): CreateProduct {

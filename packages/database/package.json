@@ -1,12 +1,19 @@
 {
   "name": "@repo/database",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
-  "exports": {
-    "./supabase": "./src/supabase-client.ts"
-  },
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "sideEffects": false,
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc && tsc -w --preserveWatchOutput",
+    "db:push": "drizzle-kit push",
+    "db:up": "drizzle-kit up",
+    "db:generate": "npm run build && drizzle-kit generate",
+    "db:pull": "drizzle-kit introspect",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
@@ -17,12 +24,16 @@
     "@types/node": "^22.15.3",
     "drizzle-kit": "^0.31.4",
     "eslint": "^9.31.0",
+    "tsx": "^4.20.3",
     "typescript": "5.8.2"
   },
   "dependencies": {
+    "@repo/env": "*",
     "@supabase/supabase-js": "^2.52.1",
-    "dotenv": "^17.2.1",
+    "@t3-oss/env-core": "^0.13.8",
+    "@types/pg": "^8.15.5",
     "drizzle-orm": "^0.44.4",
-    "postgres": "^3.4.7"
+    "pg": "^8.16.3",
+    "zod": "^4.0.14"
   }
 }

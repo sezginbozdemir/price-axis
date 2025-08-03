@@ -1,5 +1,5 @@
-import { Product } from "./product.entity.js";
-import { supabase } from "@repo/database/supabase";
+import type { Product } from "./product.entity.js";
+import { supabase } from "@repo/database";
 
 export class ProductRepository {
   async exists(productCode: string): Promise<boolean> {

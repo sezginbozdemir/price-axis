@@ -5,8 +5,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "env": ["SUPABASE_URL", "SUPABASE_ANON_KEY"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -16,8 +15,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "env": ["SUPABASE_URL", "SUPABASE_ANON_KEY"]
+      "persistent": true
     }
-  }
+  },
+  "globalEnv": ["SUPABASE_URL", "SUPABASE_ANON_KEY", "DATABASE_URL"]
 }

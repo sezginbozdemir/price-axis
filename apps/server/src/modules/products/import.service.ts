@@ -1,5 +1,5 @@
 import { parseCsv } from "./csv.parser.js";
-import { ImportResult, ImportOptions } from "./product.entity.js";
+import type { ImportResult, ImportOptions } from "./product.entity.js";
 import { ProductRepository } from "./product.repository.js";
 import { ProductTransformer } from "./product.transformer.js";
 import { ProductValidator } from "./product.validator.js";
