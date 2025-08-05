@@ -1,10 +1,14 @@
-import { Button } from "@repo/ui/components/ui/button";
+import { Button } from "@repo/ui/components/button";
+import { Alert } from "@repo/ui/components/alert";
 
 export default function Home() {
   return (
     <>
       <>
-        <Button className="text-9xl">THERE</Button>
+        <Alert>asdasd</Alert>
+        <Button className="text-4xl" variant="destructive">
+          THERE
+        </Button>
       </>
     </>
   );
