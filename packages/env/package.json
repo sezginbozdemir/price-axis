@@ -12,8 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@repo/typescript-config": "*",
-    "dotenv": "^16.4.7"
+    "@repo/typescript-config": "*"
   },
   "devDependencies": {
     "@types/node": "^22.13.8",
