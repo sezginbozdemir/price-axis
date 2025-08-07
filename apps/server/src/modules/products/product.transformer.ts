@@ -57,6 +57,6 @@ export class ProductTransformer {
   }
 
   private normalizeLink(link: string): string {
-    return link.startsWith("http") ? link : `https: ${link}`;
+    return link.startsWith("http") ? link : `https:${link}`;
   }
 }

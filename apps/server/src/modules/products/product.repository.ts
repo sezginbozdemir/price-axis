@@ -1,5 +1,8 @@
 import type { Product } from "./product.entity.js";
-import { supabase } from "@repo/database";
+import { createSupabaseClient } from "@repo/database";
+import { env } from "@repo/database/src/env.js";
+
+const supabase = createSupabaseClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
 
 export class ProductRepository {
   async exists(productCode: string): Promise<boolean> {

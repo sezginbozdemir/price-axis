@@ -4,7 +4,6 @@ import { ProductTransformer } from "#modules/products/product.transformer.js";
 import { ProductValidator } from "#modules/products/product.validator.js";
 import path from "path";
 import { fileURLToPath } from "url";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

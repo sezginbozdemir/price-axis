@@ -1,1 +1,1 @@
-export * from "./resolve-env";
+export * from "./resolve-env.js";

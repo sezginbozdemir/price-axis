@@ -2,8 +2,9 @@
   "name": "@repo/env",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "./dist/index.js",
-  "types": "./src/index",
+  "types": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
     "build": "tsc",

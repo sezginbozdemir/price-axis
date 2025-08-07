@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@repo/env": "*",
+    "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.52.1",
     "@types/pg": "^8.15.5",
     "drizzle-orm": "^0.44.4",

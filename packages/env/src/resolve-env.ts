@@ -5,7 +5,7 @@ import { config } from "dotenv";
 export const resolveEnvs = () => {
   const upFolderSyntax = "../";
   const folderDepth = 10;
-  const dir = __dirname;
+  const dir = process.cwd();
 
   const checkedFilePaths: string[] = [];
   const foundFilePaths: string[] = [];
@@ -28,17 +28,17 @@ export const resolveEnvs = () => {
     const nodeEnvPath = resolve(folderPath, `.env.${nodeEnv}`);
 
     if (existsSync(baseEnvPath)) {
-      config({ path: baseEnvPath });
+      config({ path: baseEnvPath, quiet: true });
       found = true;
       foundFilePaths.push(baseEnvPath);
     }
     if (existsSync(nodeEnvPath)) {
-      config({ path: nodeEnvPath });
+      config({ path: nodeEnvPath, quiet: true });
       found = true;
       foundFilePaths.push(nodeEnvPath);
     }
     if (existsSync(localEnvPath)) {
-      config({ path: localEnvPath });
+      config({ path: localEnvPath, quiet: true });
       found = true;
       foundFilePaths.push(localEnvPath);
     }

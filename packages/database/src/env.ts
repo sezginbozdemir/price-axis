@@ -1,7 +1,6 @@
+import { resolveEnvs } from "@repo/env";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
-import { resolveEnvs } from "@repo/env";
-
 resolveEnvs();
 
 export const env = createEnv({
@@ -10,5 +9,10 @@ export const env = createEnv({
     SUPABASE_ANON_KEY: z.string(),
     DATABASE_URL: z.string(),
   },
+  client: {
+    NEXT_PUBLIC_SUPABASE_URL: z.string(),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+  },
+  clientPrefix: "NEXT_PUBLIC_",
   runtimeEnv: process.env,
 });
