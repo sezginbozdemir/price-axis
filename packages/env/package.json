@@ -12,9 +12,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@repo/typescript-config": "*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^22.13.8",
     "typescript": "^5.8.2"

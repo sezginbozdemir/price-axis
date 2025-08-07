@@ -6,19 +6,18 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc",
-    "dev": "tsc && tsc -w --preserveWatchOutput"
+    "dev": "tsc && tsc -w --preserveWatchOutput",
+    "test-sender": "tsx ./src/scripts/test-ethereal.ts"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
     "@types/nodemailer": "^6.4.17",
     "tsx": "^4.20.3",
     "typescript": "5.8.2"
   },
   "dependencies": {
-    "@repo/env": "*",
-    "handlebars": "^4.7.8"
+    "handlebars": "^4.7.8",
+    "nodemailer": "^7.0.5"
   },
   "author": "",
   "license": "ISC",

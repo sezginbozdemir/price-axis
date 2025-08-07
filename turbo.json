@@ -21,10 +21,8 @@
         "NEXT_PUBLIC_SUPABASE_ANON_KEY",
         "DATABASE_URL"
       ],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "cache": false,
-      "persistent": true,
-      "dependsOn": ["^build"]
+      "persistent": true
     }
   },
   "globalEnv": [

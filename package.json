@@ -11,7 +11,9 @@
   "devDependencies": {
     "prettier": "^3.6.2",
     "turbo": "^2.5.5",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "@repo/typescript-config": "*",
+    "@repo/eslint-config": "*"
   },
   "engines": {
     "node": ">=18"
@@ -24,6 +26,11 @@
   "dependencies": {
     "@t3-oss/env-core": "^0.13.8",
     "dotenv": "^17.2.1",
-    "zod": "^4.0.14"
+    "zod": "^4.0.14",
+    "@repo/shared": "*",
+    "@repo/env": "*",
+    "@repo/ui": "*",
+    "@repo/mailer": "*",
+    "@repo/database": "*"
   }
 }
