@@ -48,6 +48,8 @@ export default async function Home() {
                 src={product.image_url}
                 alt={product.name}
                 className="w-full h-48 object-cover"
+                width={100}
+                height={100}
               />
             </div>
 
