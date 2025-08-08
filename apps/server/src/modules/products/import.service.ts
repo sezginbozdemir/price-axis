@@ -3,7 +3,14 @@ import type { ImportResult, ImportOptions } from "./product.entity.js";
 import { ProductRepository } from "./product.repository.js";
 import { ProductTransformer } from "./product.transformer.js";
 import { ProductValidator } from "./product.validator.js";
+import { createLogger } from "@repo/shared";
 
+const fileLogger = createLogger("product import service", {
+  enableFile: true,
+  enableConsole: false,
+});
+
+const logger = createLogger("product import service");
 export class ProductImportService {
   constructor(
     private productRepository: ProductRepository,
@@ -17,7 +24,10 @@ export class ProductImportService {
   ): Promise<ImportResult> {
     const { batchSize = 50, skipErrors = true, onProgress, onError } = options;
 
-    console.log("Starting CSV import process...");
+    logger.info("Starting CSV import process...");
+    logger.startTimer("import-csv");
+    fileLogger.info(`=== CSV Import Started: ${csvFile} ===`);
+    fileLogger.startTimer("import-csv");
 
     // Parse CSV
     const csvData = await parseCsv(csvFile);
@@ -32,7 +42,7 @@ export class ProductImportService {
     // Process in batches
     for (let i = 0; i < csvData.length; i += batchSize) {
       const batch = csvData.slice(i, i + batchSize);
-      console.log(
+      logger.info(
         `Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(csvData.length / batchSize)}`,
       );
 
@@ -47,7 +57,7 @@ export class ProductImportService {
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
     }
-
+    logger.endTimer("import-csv");
     this.logSummary(results);
     return results;
   }
@@ -99,7 +109,7 @@ export class ProductImportService {
           );
         }
 
-        console.log(
+        logger.info(
           `✓ ${result.action} product: ${normalizedProduct.product_code} - ${normalizedProduct.name}`,
         );
       } catch (error) {
@@ -117,7 +127,7 @@ export class ProductImportService {
   ): Promise<void> {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
-    console.error(`✗ Error processing row ${rowIndex + 1}: ${errorMessage}`);
+    logger.error(`✗ Error processing row ${rowIndex + 1}: ${errorMessage}`);
 
     results.errors.push({
       index: rowIndex,
@@ -139,16 +149,24 @@ export class ProductImportService {
   }
 
   private logSummary(results: ImportResult): void {
-    console.log("\n=== Import Summary ===");
-    console.log(`Total rows processed: ${results.processed}`);
-    console.log(`Products inserted: ${results.inserted}`);
-    console.log(`Products updated: ${results.updated}`);
-    console.log(`Errors: ${results.errors.length}`);
+    fileLogger.endTimer("import-csv");
+    fileLogger.info("=== Import Summary ===");
+    fileLogger.info(`Total rows processed: ${results.processed}`);
+    fileLogger.info(`Products inserted: ${results.inserted}`);
+    fileLogger.info(`Products updated: ${results.updated}`);
+    fileLogger.info(`Errors: ${results.errors.length}`);
 
+    logger.info("=== Import Summary ===");
+    logger.info(`Total rows processed: ${results.processed}`);
+    logger.info(`Products inserted: ${results.inserted}`);
+    logger.info(`Products updated: ${results.updated}`);
+    logger.info(`Errors: ${results.errors.length}`);
     if (results.errors.length > 0) {
-      console.log("\nErrors:");
+      fileLogger.warn("Errors detail:");
+      logger.warn("Errors detail:");
       results.errors.forEach(({ index, error }) => {
-        console.log(`Row ${index + 1}: ${error}`);
+        logger.warn(`Row ${index + 1}: ${error}`);
+        fileLogger.warn(`Row ${index + 1}: ${error}`);
       });
     }
   }

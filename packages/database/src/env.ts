@@ -9,6 +9,7 @@ export const env = createEnv({
     SUPABASE_ANON_KEY: z.string(),
     DATABASE_URL: z.string(),
     NODE_ENV: z.string(),
+    SERVER_PORT: z.string(),
   },
   client: {
     NEXT_PUBLIC_SUPABASE_URL: z.string(),

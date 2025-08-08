@@ -2,10 +2,13 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { env } from "#env.js";
+import { env } from "@repo/database/src/env";
+import { createLogger } from "@repo/shared";
 
 const app = express();
 const PORT = env.SERVER_PORT || 9000;
+
+const logger = createLogger("express entry");
 
 // Middleware
 
@@ -26,6 +29,7 @@ app.get("/health", (_req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Environment: ${env.NODE_ENV || "Development"}`);
+  logger.info(`Server is running on port ${PORT}`, {
+    Environment: ` ${env.NODE_ENV || "Development"}`,
+  });
 });

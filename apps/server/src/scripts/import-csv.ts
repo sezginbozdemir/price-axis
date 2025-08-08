@@ -4,6 +4,9 @@ import { ProductTransformer } from "#modules/products/product.transformer.js";
 import { ProductValidator } from "#modules/products/product.validator.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { createLogger } from "@repo/shared";
+
+const logger = createLogger("CSV IMPORT SCRIPT");
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -21,9 +24,9 @@ async function runImport() {
 
   try {
     const result = await productImportService.importFromCsv(csvPath);
-    console.log("Import completed successfully:", result);
+    logger.info("Import completed successfully:", result);
   } catch (error) {
-    console.error("Import failed:", error);
+    logger.error("Import failed:", { error: error });
     process.exit(1);
   }
 }

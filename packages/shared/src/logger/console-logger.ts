@@ -113,12 +113,20 @@ class ConsoleLogger {
 
   private getLogFileName(): string {
     const dateStr = new Date().toISOString().split("T")[0];
-    return join(this.config.logDir, `${this.source}-${dateStr}.log`);
+    const sanitizedSource = this.source.replace(/\s+/g, "-").toLowerCase();
+    return join(this.config.logDir!, `${sanitizedSource}-${dateStr}.log`);
   }
 
   private writeToFile(entry: LogEntry): void {
     const logFile = this.getLogFileName();
-    const logLine = JSON.stringify(entry) + "\n";
+    const time = entry.timestamp.split("T")[1]!.replace("Z", "");
+    const contextStr =
+      entry.context && Object.keys(entry.context).length > 0
+        ? ` | ${Object.entries(entry.context)
+            .map(([k, v]) => `${k}=${v}`)
+            .join(", ")}`
+        : "";
+    const logLine = `[${time}] [${entry.source.toUpperCase()}] ${entry.message}${contextStr}\n`;
 
     try {
       // Check if we need to rotate

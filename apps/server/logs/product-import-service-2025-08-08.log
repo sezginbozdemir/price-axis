@@ -1,0 +1,16 @@
+[19:34:18.976] [PRODUCT IMPORT SERVICE] === CSV Import Started: /home/sez/Projects/price-axis/apps/server/src/assets/csv/feed.csv ===
+[19:34:18.977] [PRODUCT IMPORT SERVICE] Timer started: import-csv
+[19:39:14.624] [PRODUCT IMPORT SERVICE] Timer ended: import-csv (295647.49ms)
+[19:39:14.628] [PRODUCT IMPORT SERVICE] === Import Summary ===
+[19:39:14.628] [PRODUCT IMPORT SERVICE] Total rows processed: 2294
+[19:39:14.628] [PRODUCT IMPORT SERVICE] Products inserted: 0
+[19:39:14.628] [PRODUCT IMPORT SERVICE] Products updated: 2294
+[19:39:14.629] [PRODUCT IMPORT SERVICE] Errors: 0
+[19:40:41.010] [PRODUCT IMPORT SERVICE] === CSV Import Started: /home/sez/Projects/price-axis/apps/server/src/assets/csv/feed.csv ===
+[19:40:41.012] [PRODUCT IMPORT SERVICE] Timer started: import-csv
+[19:45:32.955] [PRODUCT IMPORT SERVICE] Timer ended: import-csv (291943.18ms)
+[19:45:32.960] [PRODUCT IMPORT SERVICE] === Import Summary ===
+[19:45:32.961] [PRODUCT IMPORT SERVICE] Total rows processed: 2294
+[19:45:32.962] [PRODUCT IMPORT SERVICE] Products inserted: 0
+[19:45:32.962] [PRODUCT IMPORT SERVICE] Products updated: 2294
+[19:45:32.963] [PRODUCT IMPORT SERVICE] Errors: 0

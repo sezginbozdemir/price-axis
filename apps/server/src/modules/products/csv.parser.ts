@@ -1,6 +1,8 @@
 import Papa from "papaparse";
 import fs from "fs";
+import { createLogger } from "@repo/shared";
 
+const logger = createLogger("CSV PARSER");
 export async function parseCsv(file: string): Promise<any[]> {
   try {
     const csvFile = fs.readFileSync(file);
@@ -15,7 +17,7 @@ export async function parseCsv(file: string): Promise<any[]> {
         delimitersToGuess: [",", "\t", "|", ";"],
         complete: (result) => {
           if (result.errors.length > 0) {
-            console.warn("CSV parsing warnings:", result.errors);
+            logger.warn("CSV parsing warnings:", { errors: result.errors });
           }
           resolve(result.data);
         },
