@@ -1,9 +1,6 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { config } from "dotenv";
-import { createLogger } from "@repo/shared";
-
-const logger = createLogger("ENV RESOLVER");
 
 export const resolveEnvs = () => {
   const upFolderSyntax = "../";
@@ -57,7 +54,7 @@ export const resolveEnvs = () => {
   }
 
   if (found === false) {
-    logger.error(
+    console.error(
       "Failed to resolve envs. There is no .env file in the project.",
       { checked_file_paths: checkedFilePaths },
     );

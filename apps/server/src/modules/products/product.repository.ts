@@ -1,6 +1,6 @@
 import type { Product } from "./product.entity.js";
 import { createSupabaseClient } from "@repo/database";
-import { env } from "@repo/database/src/env.js";
+import { env } from "@repo/env";
 
 const supabase = createSupabaseClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
 

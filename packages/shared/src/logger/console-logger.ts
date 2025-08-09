@@ -15,8 +15,8 @@ import {
   LogEntry,
   LoggerConfig,
   TimerData,
-} from "./logger.interface";
-import { env } from "@repo/database/src/env";
+} from "./logger.interface.js";
+import { env } from "@repo/env";
 
 class ConsoleLogger {
   private source: string;

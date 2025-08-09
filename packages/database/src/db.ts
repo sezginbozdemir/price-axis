@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
-import { env } from "./env";
+import { env } from "@repo/env";
 import { Pool, type ClientConfig } from "pg";
-import * as schema from "./schema/index.js";
+import * as schema from "./schema/index";
 
 const config: ClientConfig = {
   connectionString: env.DATABASE_URL,
